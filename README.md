@@ -1,5 +1,7 @@
 # OGGM presentation
 
+https://oggm.org/framework_talk
+
 Done with [reveal.js](https://revealjs.com/).
 
 ## License
