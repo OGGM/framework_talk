@@ -38,10 +38,10 @@
 
 
 				<section style="text-align: left;">
-						This presentation is available online at <a href="https://oggm.org/framework_talk">oggm.org/framework_talk</a>
+						These slides are available online at <a href="https://oggm.org/framework_talk">oggm.org/framework_talk</a>
 						<br>
 						<br>
-						<small> Use <code>space</code>, <code>shift+space</code> and arrows to navigate its content. </small>
+						<small> Use <code>space</code>, <code>shift+space</code> and <code>arrow keys</code> to navigate between slides. </small>
 						<br>
 						<a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg" /></a><br />
 
@@ -51,19 +51,19 @@
 
 				<section>
 					<section>
-						<h3>My goals for today's talk</h3>
+						<h3>Goals of today's talk</h3>
 						<ul>
 						<li class="fragment"> (Re-)brand OGGM as a <b>modelling framework</b> in which you can fit your own model and ideas </li>
-						<li class="fragment"> Demonstrate some of OGGM's features, including <b>modularity</b>, <b>online tutorials</b> and <b>reproducible science</b> </li>
-						<li class="fragment"> Discuss the <b>challenges</b> the project is facing ... </li>
-						<li class="fragment"> ... and propose <b>ways forward</b> <br> <small> (which may involve your participation) </small> </li>
+						<li class="fragment"> Showcase some of OGGM's features, including <b>modularity</b>, <b>online tutorials</b> and <b>reproducible science</b> </li>
+						<li class="fragment"> List some <b>challenges</b> the project is facing ... </li>
+						<li class="fragment"> ... and discuss <b>ways forward</b> <br> <small> (which may involve your participation) </small> </li>
 				    </ul>
 			 	</section>
 					<section>
 						 <h3>Today's Non-goals</h3>
  						 <ul>
 						 <li class="fragment"> Sell OGGM as "the model which has it all": <br> other models out there are objectively "better", and <b>model diversity</b> is the motto that drives our project </li>
-	 					 <li class="fragment"> Getting lost in project specific details: the ideas and tools presented here are <b>applicable to all</b> </li>
+	 					 <li class="fragment"> Getting lost in project specific details: the ideas and tools presented here are <b>applicable to other projects as well</b> </li>
 						 </ul>
 		      </section>
 	    	</section>
@@ -112,12 +112,12 @@
 							<h3>Science relies on</h3>
 							<font size="6">
 								<ul>
-									<li class="fragment grow">peer review</li>
+									<li><b>peer review</b></li>
 									<li>skepticism</li>
-									<li class="fragment grow">transparency</li>
-									<li class="fragment grow">attribution</li>
+									<li><b>transparency</b></li>
+									<li><b>attribution</b></li>
 									<li>accountability</li>
-									<li class="fragment grow">collaboration</li>
+									<li><b>collaboration</b></li>
 									<li>impact</li>
 								</ul>
 									<br>
@@ -215,7 +215,7 @@
 				   </section>
 					 <section>
 						 <h3>In code</h3>
- 					<pre><code>
+ 					<pre class="python"><code>
 # Go - initialize glacier directories
 gdirs = workflow.init_glacier_directories(rgidf)
 
@@ -246,12 +246,6 @@ for task in task_list:
  					<section data-markdown>
  						<textarea data-template>
 							### Strategies for modularity
-
- 							- Persistence on disk
-							- [Separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns)
- 							- Allow code attribution and control for contributors
- 							- [Documentation](https://docs.oggm.org)
-							- A̶g̶i̶l̶e̶ ̶p̶r̶o̶g̶r̶a̶m̶m̶i̶n̶g̶ <br> <small>Tell us your use case and we'll try to adapt </small>
  						</textarea>
  					</section>
 
@@ -259,7 +253,7 @@ for task in task_list:
 					 <textarea data-template>
 						 ### Persistence on disk
 
-						 - Tasks interchangeable once file format is agreed upon
+						 - Tasks interchangeable if file format is agreed upon
 						 - Examples:
 						      - OGGM's flowlines and GloGEM's "binned glaciers" are the same object on disk
 						      - Climate data: various datasets have same format on disk
@@ -270,10 +264,10 @@ for task in task_list:
 					 <textarea data-template>
 ### Separation of concerns
 
-- Separate interfaces for glacier evolution and mass-balance models
+- Separate interfaces for glacier evolution and mass-balance models ([object oriented](https://en.wikipedia.org/wiki/Object-oriented_programming))
 - Examples:
     - different ice dynamics solvers interchangeable without code change
-    - PyGEM's mass-balance model now compatible with OGGM's dynamical model
+    - [PyGEM](https://github.com/drounce/PyGEM)'s mass-balance model now compatible with OGGM's dynamical model
 					 </textarea>
 					</section>
 
@@ -281,11 +275,19 @@ for task in task_list:
 					 <textarea data-template>
 						 ### Attribution and control
 
-						 - Correct attribution and citation of your work
-						 - Your code remains yours: <br> no need to share a repository (or anything, really), with OGGM's codebase
+						 - Your code remains yours: <br> no need to share a repository (or anything, really), with OGGM's codebase.<br> → Correct attribution and citation of your work
 						 - See the [oggmcontrib](https://github.com/OGGM/oggmcontrib) template repository
 
 					 </textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+							### and more
+
+							- [Documentation](https://docs.oggm.org)
+							- A̶g̶i̶l̶e̶ ̶p̶r̶o̶g̶r̶a̶m̶m̶i̶n̶g̶ <br> <small>Tell us your use case and we'll try to adapt </small>
+						</textarea>
 					</section>
 
 	     	</section>
@@ -293,7 +295,7 @@ for task in task_list:
 					<section>
 						<p>
 						<img class="plain" src="img/logo_shop.png" height=220px align="middle"> <br>
-						<small><em>(beta version)</em></small>
+						<small><em>(<a href="https://github.com/OGGM/oggm/pull/1002">alpha version</a>)</em></small>
 						</p>
 					</section>
 					<section data-markdown>
@@ -309,17 +311,29 @@ for task in task_list:
 			  </section>
 
 				<section>
-
+						<h3> Example: the RGI-TOPO dataset</h3>
             <img class="plain" src="img/rgitopo_ex.jpg" height=400px align="middle"> <br>
+						<p>See the <a href="https://rgitools.readthedocs.io/en/latest/dems.html">rgitools</a> documentation</p>
+	 			</section>
 
-						<p><a href="https://rgitools.readthedocs.io/en/latest/dems.html">rgitools</a></p>
+					<section style="text-align: left;" data-background="img/velocity_col.png" data-background-size="80%">
+						<h3> Example: ITS_LIVE </h3>
+<span class="fragment">
+<pre class="python"><code>gdir = init_glacier_directories(['RGI60-01.10689'])[0]
+
+from oggm.shop import its_live, dems
+dems.select_dem(gdir, dem_source='COPDEM')
+tasks.glacier_masks(gdir)
+its_live.vel_to_gdir(gdir)</code></pre>
+</span>
 	 			</section>
 
 				<section>
 
-            <img class="plain" src="img/oggm_edu.gif" height=220px align="middle"> <br>
+						<h3>Online documentation and reproducible science </h3>
 
-						<p><a href="https://edu.oggm.org/en/latest/oggm_tuto.html">Online tutorials</a></p>
+            <img class="plain" src="img/oggm_edu.gif " height=200px align="middle"> <br>
+						<p>See our <a href="https://edu.oggm.org/en/latest/oggm_tuto.html">online tutorials</a></p>
 	 			</section>
 				</section>
 
@@ -329,16 +343,16 @@ for task in task_list:
 					<li class="fragment"> Technical debt </li>
 					<li class="fragment"> Entry level for new contributors is high </li>
 					<li class="fragment"> Maintenance work relying on too few scientists </li>
-					<li class="fragment"> Funding basic, incremental improvements is difficult </li>
+					<li class="fragment"> Funding incremental improvements is difficult </li>
 					</ul>
 				</section>
 
  				<section>
          <h3>Take home</h3>
 				 <ul>
-					 <li> OGGM is a modelling <em>framework</em>: cherry picking is encouraged!</li>
-					 <li> your own fabulous model or fantastic idea might fit into it: get in touch with us!</li>
-					 <li> check out <a href="http://oggm.org">oggm.org</a> and <a href="http://edu.oggm.org">edu.oggm.org</a>, and help us to make it even better!</li>
+					 <li> OGGM is a modelling <em>framework</em>: <br> <b>cherry picking is encouraged!</b></li>
+					 <li> your own fantastic model or game changing idea might fit into the framework: get in touch with us!</li>
+					 <li> check out <a href="http://oggm.org">oggm.org</a> and <a href="http://edu.oggm.org">edu.oggm.org</a>, <br> and help us to make it even better!</li>
 				 </ul>
 			 </section>
 			</div>
@@ -356,7 +370,8 @@ for task in task_list:
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/highlight/highlight.js' },
-					{ src: 'plugin/notes/notes.js', async: true }
+					{ src: 'plugin/notes/notes.js', async: true },
+	      	{ src: 'plugin/zoom-js/zoom.js', async: true },
 				]
 			});
 		</script>
