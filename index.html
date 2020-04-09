@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>The Open Global Glacier Model</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<p>
+					<img class="plain" src="img/logo.png" height=220vh align="middle">
+					</p>
+					<p>A modern, modular and extensible framework <br> for large scale glacier modeling</p>
+					<p><a href="https://fabienmaussion.info/">Fabien Maussion</a></p>
+					<br>
+					<small>IARPC Glaciers & Sea-level Collaboration Team April 2020 Meeting</small>
+				</section>
+
+				<section>
+					<section>
+						<h3>My goals for today's talk</h3>
+						<ul>
+						<li class="fragment"> (Re-)brand OGGM as a <b>modelling framework</b> in which you can fit your own model and ideas </li>
+						<li class="fragment"> Demonstrate some of OGGM's features, including <b>modularity</b>, <b>online tutorials</b> and <b>reproducible science</b> </li>
+						<li class="fragment"> Discuss the <b>challenges</b> the project is facing ... </li>
+						<li class="fragment"> ... and propose <b>ways forward</b> <br> <small> (which may involve your participation) </small> </li>
+				    </ul>
+			 	</section>
+					<section>
+						 <h3>Today's Non-goals</h3>
+ 						 <ul>
+						 <li class="fragment"> Sell OGGM as "the model which has it all": <br> other models out there are objectively "better", and <b>model diversity</b> is the motto that drives our project </li>
+	 					 <li class="fragment"> Getting lost in project specific details: the ideas and tools presented here are <b>applicable to all</b> </li>
+						 </ul>
+		      </section>
+	    	</section>
+
+				<section>
+					<section>
+						<h2>Motivation</h2>
+			    </section>
+					<section>
+						<h3> Many glaciers, few data </h3>
+
+						Uncertainty assessment is <em>hard</em> <br><br>
+						GlacierMIP model spread shows that the individual models' uncertainty estimates are way too low
+				  </section>
+					<section>
+					Share of each source to the total uncertainty:
+					<img class="plain" src="./img/gmip_unc.png" height="500" ></p>
+					<small>GlacierMIP consortium (<a href="https://doi.pangaea.de/10.1594/PANGAEA.914503">in press</a>)</small>
+			   	</section>
+					<section>
+						<h3> Uncertain and uncoordinated boundary conditions</h3>
+
+
+						Difficulties to agree on experimental protocols within GlacierMIP
+						leads to apples and oranges comparisons.
+				  </section>
+					<section>
+						<h3> More physics is <em>always</em> better, right? </h3>
+						<small>Right?</small>
+						<br>
+						Little reflection (so far) in the community about <br> which processes
+						are adding value, <br> and which are adding noise.
+						<br>
+						<br>
+						Poor data availability and model intercomparison issues make it harder.
+				  </section>
+		    </section>
+
+				<section>
+					<section>
+        	<h3>A common misconception</h3>
+	         <p>Open source <font color="#cc0000">=</font> free (as in "free beer")</p>
+	         <p><span class="fragment">Free <font color="green">&#8712;</font> Open source</span></p>
+          </section>
+				<section>
+							<h3>Science relies on</h3>
+							<font size="6">
+								<ul>
+									<li class="fragment grow">peer review</li>
+									<li>skepticism</li>
+									<li class="fragment grow">transparency</li>
+									<li class="fragment grow">attribution</li>
+									<li>accountability</li>
+									<li class="fragment grow">collaboration</li>
+									<li>impact</li>
+								</ul>
+									<br>
+										<br>
+									<span class="fragment">Since always, academic science has been perfecting these tenents.
+										<br>
+									<b>Open source software is now excellent at all of them.</b></span>
+									<br>
+							</font>
+
+									<div align="right">
+										<font size="2">  	&#169; original slide by <a href="http://katyhuff.github.io/town-hall/#/2/2">Katy Huff</a><br></font>
+									</div>
+					</section>
+					<section>
+						<h4>Collaborative development workflow</h4>
+						<p><img class="plain" src="./img/merge-request.jpg" height="100%"></p>
+					</section>
+					<section>
+						<ul>
+							<li> OGGM's <a href="https://github.com/OGGM/oggm">online repository</a></li>
+							<li> OGGM's <a href="https://travis-ci.com/OGGM/oggm">test-suite monitoring</a></li>
+							<li> OGGM's <a href="https://cluster.klima.uni-bremen.de/~github/asv/#/">benchmarks</a></li>
+							<li> OGGM's <a href="https://cluster.klima.uni-bremen.de/~github/crossval/">mass-balance results monitoring</a></li>
+						</ul>
+							<p><img class="plain" src="img/RGI60-08.01657.png" height="150px">
+							   <img class="plain" src="img/travis.jpeg" height="150px"></p>
+					</section>
+
+				</section>
+
+				<section>
+				  <section data-background="img/bckgrd.png">
+						 <h2>The OGGM workflow</h2>
+				  </section>
+					<section>
+						  <p>
+							"Glacier centric" approach <br>
+							<img class="plain" src="img/iceland.png" height="500">
+						  </p>
+					</section>
+					<section>
+						  <p>
+							Local grid and DEM <br>
+							<img class="plain" src="img/w1.png" height="500">
+						  </p>
+					</section>
+					<section>
+						  <p>
+							Centerlines <br>
+							<img class="plain" src="img/w2.png" height="500">
+						  </p>
+					</section>
+					<section>
+						  <p>
+							Flowlines and widths <br>
+							<img class="plain" src="img/w3.png" height="500">
+						  </p>
+					</section>
+					<section>
+						  <p>
+							Mass-balance & ice thickness <br>
+							<img class="plain" src="img/w4.png" height="500">
+						  </p>
+					</section>
+					<section>
+						  <p>
+							Glacier evolution <br>
+							<img class="plain" src="img/w5.png" height="500">
+						  </p>
+					</section>
+				</section>
+
+				<section>
+				   <section data-background="img/wf_bck.jpg" data-background-size="60%">
+ 						 <h2>Workflow in practice</h2>
+	     	   </section>
+					 <section>
+						 <h3>Glacier directories</h3>
+             <img class="plain" src="img/folder.jpeg" height="200px"> <br>
+						 Persistent data containers on disk
+				   </section>
+					 <section>
+						 <h3>Entity tasks</h3>
+             <img class="plain" src="img/task_pool.png"  height="300px"> <br>
+						 Actions to perform on a glacier directory
+				   </section>
+					 <section>
+						 <h3>Global tasks</h3>
+             <img class="plain" src="img/globmap.jpg"  height="300px"> <br>
+						 Actions to perform on many glaciers
+				   </section>
+					 <section>
+						 <h3>In code</h3>
+ 					<pre><code>
+# Go - initialize glacier directories
+gdirs = workflow.init_glacier_directories(rgidf)
+
+task_list = [
+    tasks.define_glacier_region,
+    tasks.glacier_masks,
+    tasks.compute_centerlines,
+    tasks.catchment_area,
+    tasks.catchment_width_geom,
+]
+for task in task_list:
+    execute_entity_task(task, gdirs)
+ 					</code></pre>
+				   </section>
+				  </section>
+
+
+	 				<section>
+	 				   <section data-background="img/paradox.jpg" data-background-size="60%">
+	  						 <h2>Extensible and Modular</h2>
+	 	     	   </section>
+	 				 <section>
+         	    <p><img class="plain" src="img/Brainy-Play-2.jpg" height="500" ></p>
+							<div align="right">
+								<font size="2">  	&#169; <a href="https://education.lego.com/en-us/earlylearning#Start">Lego</a><br></font>
+							</div>
+           </section>
+ 					<section data-markdown>
+ 						<textarea data-template>
+							### Strategies for modularity
+
+ 							- Persistence on disk
+							- [Separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns)
+ 							- Allow code attribution and control for contributors
+ 							- [Documentation](https://docs.oggm.org)
+							- A̶g̶i̶l̶e̶ ̶p̶r̶o̶g̶r̶a̶m̶m̶i̶n̶g̶ <br> <small>Tell us your use case and we'll try to adapt </small>
+ 						</textarea>
+ 					</section>
+
+					<section data-markdown>
+					 <textarea data-template>
+						 ### Persistence on disk
+
+						 - Tasks interchangeable once file format is agreed upon
+						 - Examples:
+						      - OGGM's flowlines and GloGEM's "binned glaciers" are the same object on disk
+						      - Climate data: various datasets have same format on disk
+					 </textarea>
+					</section>
+
+					<section data-markdown>
+					 <textarea data-template>
+### Separation of concerns
+
+- Separate interfaces for glacier evolution and mass-balance models
+- Examples:
+    - different ice dynamics solvers interchangeable without code change
+    - PyGEM's mass-balance model now compatible with OGGM's dynamical model
+					 </textarea>
+					</section>
+
+					<section data-markdown>
+					 <textarea data-template>
+						 ### Attribution and control
+
+						 - Correct attribution and citation of your work
+						 - Your code remains yours: <br> no need to share a repository (or anything, really), with OGGM's codebase
+						 - See the [oggmcontrib](https://github.com/OGGM/oggmcontrib) template repository
+
+					 </textarea>
+					</section>
+
+	     	</section>
+					<section>
+					<section>
+						<p>
+						<img class="plain" src="img/logo_shop.png" height=220px align="middle"> <br>
+						<small><em>(beta version)</em></small>
+						</p>
+					</section>
+					<section data-markdown>
+					 <textarea data-template>
+					Idea: a one stop shop for all your modelling needs
+
+					- topography
+					- climate
+					- gridded obs (velocity, geodetic MB)
+					- point obs (GlaThiDa)
+					- etc.
+				</textarea>
+			  </section>
+
+				<section>
+
+            <img class="plain" src="img/rgitopo_ex.jpg" height=400px align="middle"> <br>
+
+						<p><a href="https://rgitools.readthedocs.io/en/latest/dems.html">rgitools</a></p>
+	 			</section>
+
+				<section>
+
+            <img class="plain" src="img/oggm_edu.gif" height=220px align="middle"> <br>
+
+						<p><a href="https://edu.oggm.org/en/latest/oggm_tuto.html">Online tutorials</a></p>
+	 			</section>
+				</section>
+
+				<section>
+					<h3>Challenges</h3>
+					<ul>
+					<li class="fragment"> Technical debt </li>
+					<li class="fragment"> Entry level for new contributors is high </li>
+					<li class="fragment"> Maintenance work relying on too few scientists </li>
+					<li class="fragment"> Funding basic, incremental improvements is difficult </li>
+					</ul>
+				</section>
+
+ 				<section>
+         <h3>Take home</h3>
+				 <ul>
+					 <li> OGGM is a modelling <em>framework</em>: cherry picking is encouraged!</li>
+					 <li> your own fabulous model or fantastic idea might fit into it: get in touch with us!</li>
+					 <li> check out <a href="http://oggm.org">oggm.org</a> and <a href="http://edu.oggm.org">edu.oggm.org</a>, and help us to make it even better!</li>
+				 </ul>
+			 </section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
